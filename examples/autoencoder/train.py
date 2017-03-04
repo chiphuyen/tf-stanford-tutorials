@@ -11,7 +11,7 @@ lr = 0.01
 num_epochs = 50
 
 def calculate_loss(original, reconstructed):
-    return tf.div(tf.reduce_sum(tf.square(tf.sub(reconstructed,
+    return tf.div(tf.reduce_sum(tf.square(tf.subtract(reconstructed,
                                                  original))), 
                   tf.constant(float(batch_size)))
 
