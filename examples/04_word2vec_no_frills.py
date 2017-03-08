@@ -1,4 +1,4 @@
-""" The mo frills implementation of word2vec skip-gram model using NCE loss. """
+""" The no frills implementation of word2vec skip-gram model using NCE loss. """
 
 from __future__ import absolute_import
 from __future__ import division
