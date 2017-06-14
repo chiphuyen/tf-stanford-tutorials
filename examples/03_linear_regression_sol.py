@@ -30,6 +30,8 @@ Y_predicted = X * w + b
 
 # Step 5: use the square error as the loss function
 loss = tf.square(Y - Y_predicted, name='loss')
+# OR better optimized option with
+# loss = tf.squared_difference(Y, Y_predicted, name='loss')
 
 # Step 6: using gradient descent with learning rate of 0.01 to minimize loss
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
