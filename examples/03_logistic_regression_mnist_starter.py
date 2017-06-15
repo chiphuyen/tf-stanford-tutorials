@@ -17,7 +17,7 @@ n_epochs = 10
 
 # Step 1: Read in data
 # using TF Learn's built in function to load MNIST data to the folder data/mnist
-mnist = input_data.read_data_sets('/data/mnist', one_hot=True) 
+mnist = input_data.read_data_sets('data/mnist', one_hot=True)
 
 # Step 2: create placeholders for features and labels
 # each image in the MNIST data is of shape 28*28 = 784
@@ -26,8 +26,9 @@ mnist = input_data.read_data_sets('/data/mnist', one_hot=True)
 
 
 # Step 3: create weights and bias
-# weights and biases are initialized to 0
-# shape of w depends on the dimension of X and Y so that Y = X * w + b
+# w is initialized to random variables with mean of 0, stddev of 0.01
+# b is initialized to 0
+# shape of w depends on the dimension of X and Y so that Y = tf.matmul(X, w)
 # shape of b depends on Y
 
 
