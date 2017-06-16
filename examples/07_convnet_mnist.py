@@ -12,11 +12,18 @@ import time
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
+CHECKPOINT_DIR = 'checkpoints/convnet_mnist_new/checkpoint/'
+try:
+    os.makedirs(CHECKPOINT_DIR)
+except OSError:
+    if not os.path.isdir(CHECKPOINT_DIR):
+        raise
+
 N_CLASSES = 10
 
 # Step 1: Read in data
 # using TF Learn's built in function to load MNIST data to the folder data/mnist
-mnist = input_data.read_data_sets("/data/mnist", one_hot=True)
+mnist = input_data.read_data_sets("data/mnist", one_hot=True)
 
 # Step 2: Define paramaters for the model
 LEARNING_RATE = 0.001
@@ -44,8 +51,8 @@ global_step = tf.Variable(0, dtype=tf.int32, trainable=False, name='global_step'
 
 with tf.variable_scope('conv1') as scope:
     # first, reshape the image to [BATCH_SIZE, 28, 28, 1] to make it work with tf.nn.conv2d
-    images = tf.reshape(X, shape=[-1, 28, 28, 1]) 
-    kernel = tf.get_variable('kernel', [5, 5, 1, 32], 
+    images = tf.reshape(X, shape=[-1, 28, 28, 1])
+    kernel = tf.get_variable('kernel', [5, 5, 1, 32],
                         initializer=tf.truncated_normal_initializer())
     biases = tf.get_variable('biases', [32],
                         initializer=tf.random_normal_initializer())
@@ -62,7 +69,7 @@ with tf.variable_scope('pool1') as scope:
 
 with tf.variable_scope('conv2') as scope:
     # similar to conv1, except kernel now is of the size 5 x 5 x 32 x 64
-    kernel = tf.get_variable('kernels', [5, 5, 32, 64], 
+    kernel = tf.get_variable('kernels', [5, 5, 32, 64],
                         initializer=tf.truncated_normal_initializer())
     biases = tf.get_variable('biases', [64],
                         initializer=tf.random_normal_initializer())
@@ -104,24 +111,25 @@ with tf.variable_scope('softmax_linear') as scope:
 # use softmax cross entropy with logits as the loss function
 # compute mean cross entropy, softmax is applied internally
 with tf.name_scope('loss'):
-    entropy = tf.nn.softmax_cross_entropy_with_logits(logits, Y)
+    entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=Y)
     loss = tf.reduce_mean(entropy, name='loss')
 
 # Step 7: define training op
 # using gradient descent with learning rate of LEARNING_RATE to minimize cost
-optimizer = tf.train.AdamOptimizer(LEARNING_RATE).minimize(loss, 
+optimizer = tf.train.AdamOptimizer(LEARNING_RATE).minimize(loss,
                                         global_step=global_step)
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
-    saver = tf.train.Saver()
+    saver = tf.train.Saver(tf.global_variables())
     # to visualize using TensorBoard
-    writer = tf.summary.FileWriter('./my_graph/mnist', sess.graph)
-    ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/convnet_mnist_new/checkpoint'))
-    # if that checkpoint exists, restore from checkpoint
+    writer = tf.summary.FileWriter('./my_graph/mnist/convnet/', sess.graph)
+
+    ckpt = tf.train.get_checkpoint_state(os.path.dirname(CHECKPOINT_DIR))
+    # # if that checkpoint exists, restore from checkpoint
     if ckpt and ckpt.model_checkpoint_path:
         saver.restore(sess, ckpt.model_checkpoint_path)
-    
+
     initial_step = global_step.eval()
 
     start_time = time.time()
@@ -130,13 +138,13 @@ with tf.Session() as sess:
     total_loss = 0.0
     for index in range(initial_step, n_batches * N_EPOCHS): # train the model n_epochs times
         X_batch, Y_batch = mnist.train.next_batch(BATCH_SIZE)
-        _, loss_batch = sess.run([optimizer, loss], 
-                                feed_dict={X: X_batch, Y:Y_batch, dropout: DROPOUT}) 
+        _, loss_batch = sess.run([optimizer, loss],
+                                feed_dict={X: X_batch, Y:Y_batch, dropout: DROPOUT})
         total_loss += loss_batch
         if (index + 1) % SKIP_STEP == 0:
             print('Average loss at step {}: {:5.1f}'.format(index + 1, total_loss / SKIP_STEP))
             total_loss = 0.0
-            saver.save(sess, 'checkpoints/convnet_mnist_new/mnist-convnet', index)
+            saver.save(sess, save_path=CHECKPOINT_DIR, global_step=index)
     
     print("Optimization Finished!") # should be around 0.35 after 25 epochs
     print("Total time: {0} seconds".format(time.time() - start_time))
