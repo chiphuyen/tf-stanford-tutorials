@@ -14,7 +14,7 @@ import tensorflow as tf
 # Parameters for downloading data
 DOWNLOAD_URL = 'http://mattmahoney.net/dc/'
 EXPECTED_BYTES = 31344016
-DATA_FOLDER = '/Users/Chip/data/'
+DATA_FOLDER = 'data/'
 FILE_NAME = 'text8.zip'
 
 def download(file_name, expected_bytes):
@@ -43,17 +43,11 @@ def read_data(file_path):
 
 def build_vocab(words, vocab_size):
     """ Build vocabulary of VOCAB_SIZE most frequent words """
-    dictionary = dict()
-    count = [('UNK', -1)]
+    count = [['UNK', -1]]
     count.extend(Counter(words).most_common(vocab_size - 1))
-    index = 0
-    with open('processed/vocab_1000.tsv', "w") as f:
-        # f.write("Name\n")
-        for word, _ in count:
-            dictionary[word] = index
-            if index < 1000:
-                f.write(word + "\n")
-            index += 1
+    dictionary = dict()
+    for word, _ in count:
+        dictionary[word] = len(dictionary)
     index_dictionary = dict(zip(dictionary.values(), dictionary.keys()))
     return dictionary, index_dictionary
 
