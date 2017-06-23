@@ -48,8 +48,14 @@ def generate_noise_image(content_image, height, width, noise_ratio=0.6):
                                     (1, height, width, 3)).astype(np.float32)
     return noise_image * noise_ratio + content_image * (1 - noise_ratio)
 
-def save_image(path, image):
+def save_image(filename_path, image):
     # Output should add back the mean pixels we subtracted at the beginning
     image = image[0] # the image
     image = np.clip(image, 0, 255).astype('uint8')
-    scipy.misc.imsave(path, image)
+    try:
+        scipy.misc.imsave(filename_path, image)
+    except IOError:
+        dir_path = filename_path.split("/")[0]
+        if not os.path.isdir(dir_path):
+            os.makedirs(dir_path)
+        scipy.misc.imsave(filename_path, image)
