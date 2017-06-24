@@ -44,7 +44,7 @@ def read_batch(stream, batch_size=BATCH_SIZE):
     yield batch
 
 def create_rnn(seq, hidden_size=HIDDEN_SIZE):
-    cell = tf.nn.rnn_cell.GRUCell(hidden_size)
+    cell = tf.contrib.rnn.GRUCell(hidden_size)
     in_state = tf.placeholder_with_default(
             cell.zero_state(tf.shape(seq)[0], tf.float32), [None, hidden_size])
     # this line to calculate the real length of seq
@@ -59,10 +59,11 @@ def create_model(seq, temp, vocab, hidden=HIDDEN_SIZE):
     # fully_connected is syntactic sugar for tf.matmul(w, output) + b
     # it will create w and b for us
     logits = tf.contrib.layers.fully_connected(output, len(vocab), None)
-    loss = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(logits[:, :-1], seq[:, 1:]))
+    loss = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(logits=logits[:, :-1],
+                                                                 labels=seq[:, 1:]))
     # sample the next character from Maxwell-Boltzmann Distribution with temperature temp
     # it works equally well without tf.exp
-    sample = tf.multinomial(tf.exp(logits[:, -1] / temp), 1)[:, 0] 
+    sample = tf.multinomial(tf.exp(logits[:, -1] / temp), 1)[:, 0]
     return loss, sample, in_state, out_state
 
 def training(vocab, seq, loss, optimizer, global_step, temp, sample, in_state, out_state):
@@ -71,11 +72,15 @@ def training(vocab, seq, loss, optimizer, global_step, temp, sample, in_state, o
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('graphs/gist', sess.graph)
         sess.run(tf.global_variables_initializer())
-        
-        ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/arvix/checkpoint'))
+        try:
+            os.makedirs('checkpoints/arvix/')
+        except OSError:
+            if not os.path.isdir('checkpoints/arvix/'):
+                raise
+        ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/arvix/'))
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
-        
+
         iteration = global_step.eval()
         for batch in read_batch(read_data(DATA_PATH, vocab)):
             batch_loss, _ = sess.run([loss, optimizer], {seq: batch})
