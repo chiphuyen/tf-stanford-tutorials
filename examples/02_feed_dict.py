@@ -23,7 +23,7 @@ with tf.Session() as sess:
 
 # Example 2: feed_dict with variables
 a = tf.add(2, 5)
-b = tf.mul(a, 3)
+b = tf.multiply(a, 3)
 
 with tf.Session() as sess:
 	# define a dictionary that says to replace the value of 'a' with 15

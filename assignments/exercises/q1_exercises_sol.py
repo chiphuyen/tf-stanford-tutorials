@@ -14,7 +14,7 @@ import tensorflow as tf
 
 x = tf.random_uniform([])  # Empty array as shape creates a scalar.
 y = tf.random_uniform([])
-out = tf.cond(tf.greater(x, y), lambda: tf.add(x, y), lambda: tf.sub(x, y))
+out = tf.cond(tf.greater(x, y), lambda: tf.add(x, y), lambda: tf.subtract(x, y))
 
 ###############################################################################
 # 1b: Create two 0-d tensors x and y randomly selected from -1 and 1.
@@ -25,7 +25,7 @@ out = tf.cond(tf.greater(x, y), lambda: tf.add(x, y), lambda: tf.sub(x, y))
 x = tf.random_uniform([], -1, 1, dtype=tf.float32)
 y = tf.random_uniform([], -1, 1, dtype=tf.float32)
 out = tf.case({tf.less(x, y): lambda: tf.add(x, y), 
-			tf.greater(x, y): lambda: tf.sub(x, y)}, 
+			tf.greater(x, y): lambda: tf.subtract(x, y)},
 			default=lambda: tf.constant(0.0), exclusive=True)
 
 ###############################################################################
