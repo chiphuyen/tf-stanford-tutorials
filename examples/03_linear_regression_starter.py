@@ -38,20 +38,24 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss
 # Phase 2: Train our model
 with tf.Session() as sess:
 	# Step 7: initialize the necessary variables, in this case, w and b
-	# TO - DO	
+	# TODO
 
 	# Step 8: train the model
 	for i in range(100): # run 100 epochs
 		total_loss = 0
 		for x, y in data:
-			# Session runs optimizer to minimize loss and fetch the value of loss
-			# TO DO: write sess.run()
+			# Session runs optimizer to minimize loss and fetch
+			# the value of loss as l
+			# TODO: write sess.run()
 			total_loss += l
 		print "Epoch {0}: {1}".format(i, total_loss/n_samples)
-	
+
+	# Step 9: output the values of w and b
+	# name them w_value, b_value
+
 # plot the results
 # X, Y = data.T[0], data.T[1]
 # plt.plot(X, Y, 'bo', label='Real data')
-# plt.plot(X, X * w + b, 'r', label='Predicted data')
+# plt.plot(X, X * w_value + b_value, 'r', label='Predicted data')
 # plt.legend()
 # plt.show()
