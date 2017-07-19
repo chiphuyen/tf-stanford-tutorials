@@ -72,7 +72,7 @@ def generate_sample(index_words, context_window_size):
         # get a random target before the center word
         for target in index_words[max(0, index - context): index]:
             yield center, target
-        # get a random target after the center wrod
+        # get a random target after the center word
         for target in index_words[index + 1: index + context + 1]:
             yield center, target
 
