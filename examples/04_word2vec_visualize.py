@@ -140,7 +140,7 @@ def train_model(model, batch_gen, num_train_steps, weights_fld):
         # embedding.tensor_name = embedding_var.name
         
         # # link this tensor to its metadata file, in this case the first 500 words of vocab
-        # embedding.metadata_path = 'processed/vocab_1000.tsv'
+        # embedding.metadata_path = 'vocab_1000.tsv'
 
         # # saves a configuration file that TensorBoard will read during startup.
         # projector.visualize_embeddings(summary_writer, config)
