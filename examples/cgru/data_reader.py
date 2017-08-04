@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def examples_queue(data_sources, data_fields_to_features, training,
                    data_items_to_decoders=None, data_items_to_decode=None):
   """Contruct a queue of training or evaluation examples.
