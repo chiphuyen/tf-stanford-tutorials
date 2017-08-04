@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def neural_gpu(features, hparams, name=None):
   """The core Neural GPU."""
   with tf.variable_scope(name, "neural_gpu"):
