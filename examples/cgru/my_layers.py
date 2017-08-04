@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def saturating_sigmoid(x):
   """Saturating sigmoid: 1.2 * sigmoid(x) - 0.1 cut to [0, 1]."""
   with tf.name_scope("saturating_sigmoid", [x]):
