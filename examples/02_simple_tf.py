@@ -16,7 +16,7 @@ x = tf.add(a, b)
 with tf.Session() as sess:
 	writer = tf.summary.FileWriter('./graphs', sess.graph) 
 	print(sess.run(x))
-writer.close() # close the writer when you’re done using it
+writer.close() # close the writer when youre done using it
 
 
 a = tf.constant([2, 2], name='a')
@@ -27,6 +27,7 @@ with tf.Session() as sess:
 # >> [[0 2]
 #	 [4 6]]
 
+shape = [2, 2]
 tf.zeros(shape, dtype=tf.float32, name=None)
 #creates a tensor of shape and all elements will be zeros (when ran in session)
 

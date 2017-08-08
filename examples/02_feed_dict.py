@@ -19,7 +19,7 @@ b = tf.constant([5, 5, 5], tf.float32)
 c = a + b  # short for tf.add(a, b)
 
 with tf.Session() as sess:
-	# print(sess.run(c)) # InvalidArgumentError because a doesn’t have any value
+	# print(sess.run(c)) # InvalidArgumentError because a doesnt have any value
 
 	# feed [1, 2, 3] to placeholder a via the dict {a: [1, 2, 3]}
 	# fetch value of c

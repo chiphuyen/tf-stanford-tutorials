@@ -62,6 +62,33 @@ $ virtualenv venv --distribute --system-site-packages
 ```
 ### For Ubuntu
 
+Step 1: set up pip and virtual environment
+```bash
+$ sudo apt-get install python-pip
+$ sudo pip install virtualenv
+```
+
+Step 2: set up a project directory. You will do all work for this class in this directory
+```bash
+$ mkdir [my project]
+```
+
+Step 3: set up virtual environment for the project directory. 
+```bash
+$ cd [my project]
+$ virtualenv venv
+```
+These commands create a venv subdirectory in your project where everything is installed.
+
+Step 4: to activate the virtual environment 
+```bash
+$ source venv/bin/activate
+```
+
+Step 5: install tensorflow and other dependencies
+```bash
+$ pip install -r setup/requirements
+```
 
 ### For Windows
 

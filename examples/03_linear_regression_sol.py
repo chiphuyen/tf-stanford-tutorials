@@ -35,8 +35,8 @@ b = tf.Variable(0.0, name='bias')
 Y_predicted = X * w + b 
 
 # Step 5: use the square error as the loss function
-loss = tf.square(Y - Y_predicted, name='loss')
-# loss = utils.huber_loss(Y, Y_predicted)
+#loss = tf.square(Y - Y_predicted, name='loss')
+loss = utils.huber_loss(Y, Y_predicted)
 
 # Step 6: using gradient descent with learning rate of 0.01 to minimize loss
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
@@ -48,7 +48,7 @@ with tf.Session() as sess:
 	writer = tf.summary.FileWriter('./graphs/linear_reg', sess.graph)
 	
 	# Step 8: train the model
-	for i in range(50): # train the model 100 epochs
+	for i in range(100): # train the model 100 epochs
 		total_loss = 0
 		for x, y in data:
 			# Session runs train_op and fetch values of loss
