@@ -27,6 +27,7 @@ with tf.Session() as sess:
 # >> [[0 2]
 #	 [4 6]]
 
+shape = [2, 2]
 tf.zeros(shape, dtype=tf.float32, name=None)
 #creates a tensor of shape and all elements will be zeros (when ran in session)
 
