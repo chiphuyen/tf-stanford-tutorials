@@ -8,7 +8,18 @@ import os.path
 import zipfile
 
 import sys
-sys.path.extend(['', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python27.zip', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-tk', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-old', '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload', '/Users/shlens/Desktop/Neural-Art/homebrew/lib/python2.7/site-packages', '/Users/shlens/Desktop/Neural-Art/homebrew/lib/python2.7/site-packages/gtk-2.0', '/Users/shlens/Desktop/Neural-Art/homebrew/lib/python2.7/site-packages/gtk-2.0'])
+sys.path.extend(['',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python27.zip',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-tk',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-old',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/lib/python2.7/site-packages',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/lib/python2.7/site-packages/gtk-2.0',
+                 '/Users/shlens/Desktop/Neural-Art/homebrew/lib/python2.7/site-packages/gtk-2.0'])
 
 
 import numpy as np
