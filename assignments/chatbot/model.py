@@ -22,6 +22,8 @@ import numpy as np
 import tensorflow as tf
 
 import config
+import copy
+import pdb
 
 class ChatBotModel(object):
     def __init__(self, forward_only, batch_size):
@@ -49,30 +51,47 @@ class ChatBotModel(object):
         # If we use sampled softmax, we need an output projection.
         # Sampled softmax only makes sense if we sample less than vocabulary size.
         if config.NUM_SAMPLES > 0 and config.NUM_SAMPLES < config.DEC_VOCAB:
-            w = tf.get_variable('proj_w', [config.HIDDEN_SIZE, config.DEC_VOCAB])
-            b = tf.get_variable('proj_b', [config.DEC_VOCAB])
+            w = tf.get_variable('proj_w', [config.HIDDEN_SIZE, config.DEC_VOCAB],dtype=tf.float32)
+            w_t = tf.transpose(w)
+            b = tf.get_variable('proj_b', [config.DEC_VOCAB],dtype=tf.float32)
             self.output_projection = (w, b)
 
         def sampled_loss(labels=None, logits=None):
             labels = tf.reshape(labels, [-1, 1])
-            return tf.nn.sampled_softmax_loss(tf.transpose(w), b, labels, logits, 
-                                              config.NUM_SAMPLES, config.DEC_VOCAB)
+            # We need to compute the sampled_softmax_loss using 32bit floats to
+            # avoid numerical instabilities. 
+            local_w_t = tf.cast(w_t, tf.float32)
+            local_b = tf.cast(b, tf.float32)
+            local_inputs = tf.cast(logits, tf.float32)
+            # return tf.nn.sampled_softmax_loss(tf.transpose(w), b, labels, logits, 
+            #                                   config.NUM_SAMPLES, config.DEC_VOCAB)
+            return tf.cast(
+            tf.nn.sampled_softmax_loss(
+                weights=local_w_t,
+                biases=local_b,
+                labels=labels,
+                inputs=local_inputs,
+                num_sampled=config.NUM_SAMPLES,
+                num_classes=config.DEC_VOCAB),
+                dtype=tf.float32)
         self.softmax_loss_function = sampled_loss
 
-        single_cell = tf.nn.rnn_cell.GRUCell(config.HIDDEN_SIZE)
-        self.cell = tf.nn.rnn_cell.MultiRNNCell([single_cell] * config.NUM_LAYERS)
+        single_cell = tf.contrib.rnn.GRUCell(config.HIDDEN_SIZE)
+        self.cell = tf.contrib.rnn.MultiRNNCell([single_cell] * config.NUM_LAYERS)
 
     def _create_loss(self):
         print('Creating loss... \nIt might take a couple of minutes depending on how many buckets you have.')
         start = time.time()
         def _seq2seq_f(encoder_inputs, decoder_inputs, do_decode):
+            tmp_cell = copy.deepcopy(self.cell)
             return tf.contrib.legacy_seq2seq.embedding_attention_seq2seq(
-                    encoder_inputs, decoder_inputs, self.cell,
+                    encoder_inputs, decoder_inputs, tmp_cell,
                     num_encoder_symbols=config.ENC_VOCAB,
                     num_decoder_symbols=config.DEC_VOCAB,
                     embedding_size=config.HIDDEN_SIZE,
                     output_projection=self.output_projection,
-                    feed_previous=do_decode)
+                    feed_previous=do_decode,
+                    dtype=tf.float32)
 
         if self.fw_only:
             self.outputs, self.losses = tf.contrib.legacy_seq2seq.model_with_buckets(

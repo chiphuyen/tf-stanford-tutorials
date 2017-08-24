@@ -17,9 +17,9 @@ See readme.md for instruction on how to run the starter code.
 """
 from __future__ import print_function
 
-import os
 import random
 import re
+import os
 
 import numpy as np
 
@@ -177,6 +177,7 @@ def prepare_raw_data():
     print('Preparing raw data into train set and test set ...')
     id2line = get_lines()
     convos = get_convos()
+    print (convos)
     questions, answers = question_answers(id2line, convos)
     prepare_dataset(questions, answers)
 
@@ -253,4 +254,4 @@ def get_batch(data_bucket, bucket_id, batch_size=1):
 
 if __name__ == '__main__':
     prepare_raw_data()
-    process_data()
+    # process_data()
