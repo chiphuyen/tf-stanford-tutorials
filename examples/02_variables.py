@@ -11,22 +11,22 @@ W = tf.Variable(10)
 assign_op = W.assign(100)
 
 with tf.Session() as sess:
-	sess.run(W.initializer)
-	print(W.eval()) # >> 10
-	print(sess.run(assign_op)) # >> 100
+    sess.run(W.initializer)
+    print(W.eval()) # >> 10
+    print(sess.run(assign_op)) # >> 100
 
 # Example 2: tricky example
 # create a variable whose original value is 2
-my_var = tf.Variable(2, name="my_var") 
+my_var = tf.Variable(2, name="my_var")
 
 # assign 2 * my_var to my_var and run the op my_var_times_two
 my_var_times_two = my_var.assign(2 * my_var)
 
 with tf.Session() as sess:
-	sess.run(tf.global_variables_initializer())
-	print(sess.run(my_var_times_two)) # >> 4
-	print(sess.run(my_var_times_two)) # >> 8
-	print(sess.run(my_var_times_two)) # >> 16
+    sess.run(tf.global_variables_initializer())
+    print(sess.run(my_var_times_two)) # >> 4
+    print(sess.run(my_var_times_two)) # >> 8
+    print(sess.run(my_var_times_two)) # >> 16
 
 # Example 3: each session maintains its own copy of variables
 W = tf.Variable(10)

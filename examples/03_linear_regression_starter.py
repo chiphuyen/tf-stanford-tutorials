@@ -41,23 +41,23 @@ n_samples = sheet.nrows - 1
 
 
 # Step 6: using gradient descent with learning rate of 0.01 to minimize loss
- 
+
 # Phase 2: Train our model
 with tf.Session() as sess:
-	# Step 7: initialize the necessary variables, in this case, w and b
-	# TO - DO	
+    # Step 7: initialize the necessary variables, in this case, w and b
+    # TO - DO	
 
 
-	# Step 8: train the model
-	for i in range(50): # run 100 epochs
-		total_loss = 0
-		for x, y in data:
-			# Session runs optimizer to minimize loss and fetch the value of loss. Name the received value as l
-			# TO DO: write sess.run()
+    # Step 8: train the model
+    for i in range(50): # run 100 epochs
+        total_loss = 0
+        for x, y in data:
+            # Session runs optimizer to minimize loss and fetch the value of loss. Name the received value as l
+            # TO DO: write sess.run()
 
-			total_loss += l
-		print("Epoch {0}: {1}".format(i, total_loss/n_samples))
-	
+            total_loss += l
+        print("Epoch {0}: {1}".format(i, total_loss/n_samples))
+    
 # plot the results
 # X, Y = data.T[0], data.T[1]
 # plt.plot(X, Y, 'bo', label='Real data')
