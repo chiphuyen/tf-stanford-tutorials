@@ -16,7 +16,7 @@ See readme.md for instruction on how to run the starter code.
 """
 
 # parameters for processing the dataset
-DATA_PATH = '/Users/Chip/data/cornell movie-dialogs corpus'
+DATA_PATH = 'data'
 CONVO_FILE = 'movie_conversations.txt'
 LINE_FILE = 'movie_lines.txt'
 OUTPUT_FILE = 'output_convo.txt'
@@ -47,8 +47,7 @@ These buckets size seem to work the best
 # [37049, 33519, 30223, 33513, 37371]
 # BUCKETS = [(8, 10), (12, 14), (16, 19), (23, 26), (39, 43)]
 
-# BUCKETS = [(8, 10), (12, 14), (16, 19)]
-BUCKETS = [(16, 19)]
+BUCKETS = [(8, 10), (12, 14), (16, 19)]
 
 NUM_LAYERS = 3
 HIDDEN_SIZE = 256
@@ -58,3 +57,5 @@ LR = 0.5
 MAX_GRAD_NORM = 5.0
 
 NUM_SAMPLES = 512
+ENC_VOCAB = 24515
+DEC_VOCAB = 24671

@@ -17,9 +17,9 @@ See readme.md for instruction on how to run the starter code.
 """
 from __future__ import print_function
 
-import os
 import random
 import re
+import os
 
 import numpy as np
 
@@ -254,3 +254,4 @@ def get_batch(data_bucket, bucket_id, batch_size=1):
 if __name__ == '__main__':
     prepare_raw_data()
     process_data()
+
