@@ -55,8 +55,7 @@ with tf.Session() as sess:
         total_loss = 0
         for x, y in data:
             # Session runs optimizer to minimize loss and fetch the value of loss. Name the received value as l
-            sess.run(optimizer, feed_dict={X: x, Y: y})
-            l = sess.run(loss, feed_dict={X: x, Y: y})  # This is how to obtain the value of a function of placeholder
+            _, l = sess.run([optimizer, loss], feed_dict={X: x, Y: y}) # This is how to obtain the value of a function of placeholder
             total_loss += l
         print("Epoch {0}: {1}".format(i, total_loss/n_samples))
     
@@ -64,9 +63,9 @@ with tf.Session() as sess:
     w_value, b_value = sess.run([w, b])
     print([w_value, b_value])
 
-    # Step 10: see your model in TensorBoard
-    writer = tf.summary.FileWriter('./my_graph/03/linear_reg', sess.graph)
-writer.close()
+#     # Step 10: see your model in TensorBoard
+#     writer = tf.summary.FileWriter('./my_graph/03/linear_reg', sess.graph)
+# writer.close()
 
 # Step 11: plot the results with matplotlib
 X, Y = data.T[0], data.T[1]
