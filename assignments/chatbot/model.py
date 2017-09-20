@@ -1,7 +1,7 @@
 """ A neural chatbot using sequence to sequence model with
-attentional decoder. 
+attentional decoder.
 
-This is based on Google Translate Tensorflow model 
+This is based on Google Translate Tensorflow model
 https://github.com/tensorflow/models/blob/master/tutorials/rnn/translate/
 
 Sequence to sequence model by Cho et al.(2014)
@@ -30,7 +30,7 @@ class ChatBotModel(object):
         print('Initialize new model')
         self.fw_only = forward_only
         self.batch_size = batch_size
-    
+
     def _create_placeholders(self):
         # Feeds for inputs. It's a list of placeholders
         print('Create placeholders')
@@ -43,7 +43,7 @@ class ChatBotModel(object):
 
         # Our targets are decoder inputs shifted by one (to ignore <s> symbol)
         self.targets = self.decoder_inputs[1:]
-        
+
     def _inference(self):
         print('Create inference')
         # If we use sampled softmax, we need an output projection.
@@ -53,9 +53,9 @@ class ChatBotModel(object):
             b = tf.get_variable('proj_b', [config.DEC_VOCAB])
             self.output_projection = (w, b)
 
-        def sampled_loss(inputs, labels):
+        def sampled_loss(labels, logits):
             labels = tf.reshape(labels, [-1, 1])
-            return tf.nn.sampled_softmax_loss(tf.transpose(w), b, inputs, labels, 
+            return tf.nn.sampled_softmax_loss(tf.transpose(w), b, labels, logits,
                                               config.NUM_SAMPLES, config.DEC_VOCAB)
         self.softmax_loss_function = sampled_loss
 
@@ -66,7 +66,7 @@ class ChatBotModel(object):
         print('Creating loss... \nIt might take a couple of minutes depending on how many buckets you have.')
         start = time.time()
         def _seq2seq_f(encoder_inputs, decoder_inputs, do_decode):
-            return tf.nn.seq2seq.embedding_attention_seq2seq(
+            return tf.contrib.legacy_seq2seq.embedding_attention_seq2seq(
                     encoder_inputs, decoder_inputs, self.cell,
                     num_encoder_symbols=config.ENC_VOCAB,
                     num_decoder_symbols=config.DEC_VOCAB,
@@ -75,24 +75,24 @@ class ChatBotModel(object):
                     feed_previous=do_decode)
 
         if self.fw_only:
-            self.outputs, self.losses = tf.nn.seq2seq.model_with_buckets(
-                                        self.encoder_inputs, 
-                                        self.decoder_inputs, 
+            self.outputs, self.losses = tf.contrib.legacy_seq2seq.model_with_buckets(
+                                        self.encoder_inputs,
+                                        self.decoder_inputs,
                                         self.targets,
-                                        self.decoder_masks, 
-                                        config.BUCKETS, 
+                                        self.decoder_masks,
+                                        config.BUCKETS,
                                         lambda x, y: _seq2seq_f(x, y, True),
                                         softmax_loss_function=self.softmax_loss_function)
             # If we use output projection, we need to project outputs for decoding.
             if self.output_projection:
                 for bucket in range(len(config.BUCKETS)):
-                    self.outputs[bucket] = [tf.matmul(output, 
+                    self.outputs[bucket] = [tf.matmul(output,
                                             self.output_projection[0]) + self.output_projection[1]
                                             for output in self.outputs[bucket]]
         else:
-            self.outputs, self.losses = tf.nn.seq2seq.model_with_buckets(
-                                        self.encoder_inputs, 
-                                        self.decoder_inputs, 
+            self.outputs, self.losses = tf.contrib.legacy_seq2seq.model_with_buckets(
+                                        self.encoder_inputs,
+                                        self.decoder_inputs,
                                         self.targets,
                                         self.decoder_masks,
                                         config.BUCKETS,
@@ -112,12 +112,12 @@ class ChatBotModel(object):
                 self.train_ops = []
                 start = time.time()
                 for bucket in range(len(config.BUCKETS)):
-                    
-                    clipped_grads, norm = tf.clip_by_global_norm(tf.gradients(self.losses[bucket], 
+
+                    clipped_grads, norm = tf.clip_by_global_norm(tf.gradients(self.losses[bucket],
                                                                  trainables),
                                                                  config.MAX_GRAD_NORM)
                     self.gradient_norms.append(norm)
-                    self.train_ops.append(self.optimizer.apply_gradients(zip(clipped_grads, trainables), 
+                    self.train_ops.append(self.optimizer.apply_gradients(zip(clipped_grads, trainables),
                                                             global_step=self.global_step))
                     print('Creating opt for bucket {} took {} seconds'.format(bucket, time.time() - start))
                     start = time.time()
