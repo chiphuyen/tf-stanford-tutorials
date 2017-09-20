@@ -148,7 +148,7 @@ def load_vocab(vocab_path):
     return words, {words[i]: i for i in range(len(words))}
 
 def sentence2id(vocab, line):
-    return [vocab.get(token, vocab[b'<unk>']) for token in basic_tokenizer(line)]
+    return [vocab.get(token, vocab[b'<unk>']) for token in basic_tokenizer(str.encode(line))]
 
 def token2id(data, mode):
     """ Convert all the tokens in the data into their corresponding
