@@ -31,7 +31,6 @@ def get_lines():
     with open(file_path, 'rb') as f:
         lines = f.readlines()
         for line in lines:
-            print(line)
             parts = line.split(b' +++$+++ ')
             if len(parts) == 5:
                 if parts[4][-1] == '\n':
