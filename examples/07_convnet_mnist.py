@@ -15,7 +15,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import time 
 
 import tensorflow as tf
-import tf.contrib.layers as layers
+# import tf.contrib.layers as layers
 from tensorflow.examples.tutorials.mnist import input_data
 
 import utils
@@ -61,7 +61,7 @@ with tf.variable_scope('conv1') as scope:
     conv1 = tf.nn.relu(conv + biases, name=scope.name)
 
     # output is of dimension BATCH_SIZE x 28 x 28 x 32
-    conv1 = layers.conv2d(images, 32, 5, 1, activation_fn=tf.nn.relu, padding='SAME')
+    conv1 = tf.contrib.layers.conv2d(images, 32, 5, 1, activation_fn=tf.nn.relu, padding='SAME')
 
 with tf.variable_scope('pool1') as scope:
     pool1 = tf.nn.max_pool(conv1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1],
