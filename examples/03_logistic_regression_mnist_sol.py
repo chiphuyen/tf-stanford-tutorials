@@ -20,7 +20,7 @@ n_epochs = 30
 
 # Step 1: Read in data
 # using TF Learn's built in function to load MNIST data to the folder data/mnist
-mnist = input_data.read_data_sets('/data/mnist', one_hot=True) 
+mnist = input_data.read_data_sets('./data/mnist', one_hot=True) 
 
 # Step 2: create placeholders for features and labels
 # each image in the MNIST data is of shape 28*28 = 784
@@ -83,7 +83,7 @@ with tf.Session() as sess:
 	
 	for i in range(n_batches):
 		X_batch, Y_batch = mnist.test.next_batch(batch_size)
-		accuracy_batch = sess.run([accuracy], feed_dict={X: X_batch, Y:Y_batch}) 
+		accuracy_batch = sess.run(accuracy, feed_dict={X: X_batch, Y:Y_batch}) 
 		total_correct_preds += accuracy_batch	
 	
 	print('Accuracy {0}'.format(total_correct_preds/mnist.test.num_examples))
