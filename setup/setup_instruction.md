@@ -69,9 +69,9 @@ $ virtualenv venv --distribute --system-site-packages
 ### On the cloud
 If you don't want to install TensorFlow, you can use TensorFlow over the web.
 
-#### SageMath
-You can use Tensorflow over the web at https://cloud.sagemath.com/
-Simply click on the link, create an account (or log in with your GitHub), and create a TensorFlow project.
+#### CoCalc (previously SageMathCloud)
+You can use Tensorflow over the web at https://cocalc.com/
+Simply click on the link, create an account (or log in with your GitHub), create a project, create a Jupyter notebook, and select the "Python 3 (Anaconda)" kernel.  The TensorFlow library is preinstalled, as you can verify by running `import tensorflow as tf; help(tf)` in the notebook.
 
 #### Jupyter
 You can also use Jupyter notebook to write TensorFlow programs.
