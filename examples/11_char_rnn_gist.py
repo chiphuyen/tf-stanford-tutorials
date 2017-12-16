@@ -103,7 +103,7 @@ def online_inference(sess, vocab, seq, sample, temp, in_state, out_state, seed='
         if state is not None:
             feed.update({in_state: state})
         index, state = sess.run([sample, out_state], feed)
-        sentence += vocab_decode(index, vocab)
+        sentence += vocab_decode(index + 1, vocab)
     print(sentence)
 
 def main():
