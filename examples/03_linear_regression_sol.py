@@ -48,7 +48,7 @@ with tf.Session() as sess:
 	writer = tf.summary.FileWriter('./graphs/linear_reg', sess.graph)
 	
 	# Step 8: train the model
-	for i in range(50): # train the model 100 epochs
+	for i in range(100): # train the model 100 epochs
 		total_loss = 0
 		for x, y in data:
 			# Session runs train_op and fetch values of loss
