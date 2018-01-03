@@ -83,7 +83,7 @@ with tf.Session() as sess:
 	
 	for i in range(n_batches):
 		X_batch, Y_batch = mnist.test.next_batch(batch_size)
-		accuracy_batch = sess.run([accuracy], feed_dict={X: X_batch, Y:Y_batch}) 
+		accuracy_batch = sess.run(accuracy, feed_dict={X: X_batch, Y:Y_batch})
 		total_correct_preds += accuracy_batch	
 	
 	print('Accuracy {0}'.format(total_correct_preds/mnist.test.num_examples))
