@@ -1,5 +1,6 @@
 import tensorflow as tf
-from tensor2tensor.layers import common_layers
+from tensor2tensor.layers import common_layers, common_hparams
+
 
 def neural_gpu(features, hparams, name=None):
   """The core Neural GPU."""
