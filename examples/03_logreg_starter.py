@@ -15,7 +15,7 @@ import time
 
 import utils
 
-# Define paramaters for the model
+# Define parameters for the model
 learning_rate = 0.01
 batch_size = 128
 n_epochs = 30
