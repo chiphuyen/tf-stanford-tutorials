@@ -39,7 +39,7 @@ with tf.Session() as sess:
     print(W.eval())                     	# >> 100
 
 # create a variable whose original value is 2
-a = tf.get_variable('scalar', initializer=tf.constant(2)) 
+a = tf.get_variable('scalar2', initializer=tf.constant(2)) 
 a_times_two = a.assign(a * 2)
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer()) 
