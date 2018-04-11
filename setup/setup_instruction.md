@@ -20,7 +20,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 - If you want to install TensorFlow from sources, keep in mind that TensorFlow doesn't officially support building TensorFlow on Windows. On Windows, you may try using the highly experimental Bazel on Windows or TensorFlow CMake build.
 
-Below is a simpler instruction on how to install TensorFlow on macOS. If you have any problem installing Tensorflow, feel free to post it on [Piazza](piazza.com/stanford/winter2018/cs20)
+Below is a simpler instruction on how to install TensorFlow on macOS. If you have any problem installing Tensorflow, feel free to post it on [Piazza](https://piazza.com/stanford/winter2018/cs20)
 
 If you get “permission denied” error in any command, use “sudo” in front of that command.
 
