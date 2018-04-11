@@ -43,16 +43,30 @@ Step 4: set up a project directory. You will do all work for this class in this 
 $ mkdir cs20
 ```
 
-Step 5: set up virtual environment with python3
+Step 5: set up virtual environment with python3  *Different if you are using Anaconda*
 ```bash
 $ cd cs20
 $ python3 -m venv .env
+```
+*If you find this error efter the last command, you probably have Anaconda installed*
+```bash
+Error: Command '['home/user/cs20/.env/bin/python3', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.
+```
+You need to create the environment without pip, and installing it later, as stated [here](https://github.com/ContinuumIO/anaconda-issues/issues/6917)
+
+Instead of **`$ python3 -m venv .env`**, write:
+```bash
+$ python3 -m venv --without-pip .env
 ```
 These commands create a venv subdirectory in your project where everything is installed.
 
 Step 6: activate the virtual environment 
 ```bash
 $ source .env/bin/activate
+```
+If you created the virtual environment with the option `--without-pip`, you have to install it now. Type:
+```bash
+curl https://bootstrap.pypa.io/get-pip.py | python
 ```
 
 If you type:
