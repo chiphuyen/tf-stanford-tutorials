@@ -1,4 +1,4 @@
-Please follow the official instruction to install TensorFlow [here](https://www.tensorflow.org/install/). For this course, I will use Python 3.6 and TensorFlow 1.4. You’re welcome to use either Python 2 or Python 3 for the assignments. The starter code, though, will be in Python 3.6. You don't need GPU for most code examples in this course, though having GPU won't hurt. If you install TensorFlow on your local machine, my ecommendation is always set up Tensorflow using virtualenv. 
+Please follow the official instruction to install TensorFlow [here](https://www.tensorflow.org/install/). For this course, I will use Python 3.6 and TensorFlow 1.4. You’re welcome to use either Python 2 or Python 3 for the assignments. The starter code, though, will be in Python 3.6. You don't need GPU for most code examples in this course, though having GPU won't hurt. If you install TensorFlow on your local machine, my recommendation is always set up Tensorflow using virtualenv. 
 
 For the list of dependencies, please consult the file requirements.txt. This list will be updated as the course progresses. 
 
