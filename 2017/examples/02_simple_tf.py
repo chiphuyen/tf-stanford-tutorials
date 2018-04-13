@@ -27,10 +27,7 @@ with tf.Session() as sess:
 # >> [[0 2]
 #	 [4 6]]
 
-tf.zeros(shape, dtype=tf.float32, name=None)
-#creates a tensor of shape and all elements will be zeros (when ran in session)
-
-x = tf.zeros([2, 3], tf.int32) 
+x = tf.zeros([2, 3], tf.int32) # creates a tensor of shape and all elements will be zeros (when ran in session)
 y = tf.zeros_like(x, optimize=True)
 print(y)
 print(tf.get_default_graph().as_graph_def())
@@ -59,7 +56,7 @@ with tf.Session() as sess:
 
 t_1 = ['apple', 'peach', 'banana']
 x = tf.zeros_like(t_1) # ==> ['' '' '']
-y = tf.ones_like(t_1) # ==> TypeError: Expected string, got 1 of type 'int' instead.
+# y = tf.ones_like(t_1) # ==> TypeError: Expected string, got 1 of type 'int' instead.
 
 t_2 = [[True, False, False],
        [False, False, True],
