@@ -68,8 +68,8 @@ with tf.Session() as sess:
         for x, y in data:
             # Execute train_op and get the value of loss.
             # Don't forget to feed in data for placeholders
-            _, loss = ########## TO DO ############
-            total_loss += loss
+            _, l = ########## TO DO ############
+            total_loss += l
 
         print('Epoch {0}: {1}'.format(i, total_loss/n_samples))
 
