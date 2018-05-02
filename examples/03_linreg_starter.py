@@ -25,6 +25,9 @@ X, Y = None, None
 #############################
 ########## TO DO ############
 #############################
+X = tf.placeholder("float")
+Y = tf.placeholder("float")
+
 
 # Step 3: create weight and bias, initialized to 0.0
 # Make sure to use tf.get_variable
@@ -32,6 +35,8 @@ w, b = None, None
 #############################
 ########## TO DO ############
 #############################
+w = tf.get_variable(name="w",initializer=tf.constant(0.0))
+b = tf.get_variable(name="b",initializer=tf.constant(0.0))
 
 # Step 4: build model to predict Y
 # e.g. how would you derive at Y_predicted given X, w, and b
@@ -39,28 +44,31 @@ Y_predicted = None
 #############################
 ########## TO DO ############
 #############################
+Y_predicted = w * X + b
 
 # Step 5: use the square error as the loss function
 loss = None
 #############################
 ########## TO DO ############
 #############################
+loss = tf.square(Y - Y_predicted,name="loss")
 
 # Step 6: using gradient descent with learning rate of 0.001 to minimize loss
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
-
 start = time.time()
 
 # Create a filewriter to write the model's graph to TensorBoard
 #############################
 ########## TO DO ############
 #############################
+writer = tf.summary.FileWriter('./graphs/linear_regression', tf.get_default_graph())
 
 with tf.Session() as sess:
     # Step 7: initialize the necessary variables, in this case, w and b
     #############################
     ########## TO DO ############
     #############################
+    sess.run(tf.variables_initializer([w,b]))
 
     # Step 8: train the model for 100 epochs
     for i in range(100):
@@ -68,8 +76,8 @@ with tf.Session() as sess:
         for x, y in data:
             # Execute train_op and get the value of loss.
             # Don't forget to feed in data for placeholders
-            _, loss = ########## TO DO ############
-            total_loss += loss
+            _, loss_ = sess.run([optimizer,loss],feed_dict={X:x, Y:y})
+            total_loss += loss_
 
         print('Epoch {0}: {1}'.format(i, total_loss/n_samples))
 
@@ -84,11 +92,13 @@ with tf.Session() as sess:
     #############################
     ########## TO DO ############
     #############################
+    w_out = sess.run(w)
+    b_out = sess.run(b)
 
 print('Took: %f seconds' %(time.time() - start))
 
 # uncomment the following lines to see the plot 
-# plt.plot(data[:,0], data[:,1], 'bo', label='Real data')
-# plt.plot(data[:,0], data[:,0] * w_out + b_out, 'r', label='Predicted data')
-# plt.legend()
-# plt.show()
+plt.plot(data[:,0], data[:,1], 'bo', label='Real data')
+plt.plot(data[:,0], data[:,0] * w_out + b_out, 'r', label='Predicted data')
+plt.legend()
+plt.show()
