@@ -1,10 +1,10 @@
-Please follow the official instruction to install TensorFlow [here](https://www.tensorflow.org/install/). For this course, I will use Python 3.6 and TensorFlow 1.4. You’re welcome to use either Python 2 or Python 3 for the assignments. The starter code, though, will be in Python 3.6. You don't need GPU for most code examples in this course, though having GPU won't hurt. If you install TensorFlow on your local machine, my ecommendation is always set up Tensorflow using virtualenv. 
+Please follow the official instruction to install TensorFlow [here](https://www.tensorflow.org/install/). For this course, I will use Python 3.6 and TensorFlow 1.4. You’re welcome to use either Python 2 or Python 3 for the assignments. The starter code, though, will be in Python 3.6. You don't need GPU for most code examples in this course, though having GPU won't hurt. If you install TensorFlow on your local machine, my recommendation is always set up Tensorflow using virtualenv. 
 
 For the list of dependencies, please consult the file requirements.txt. This list will be updated as the course progresses. 
 
 There are a few things to note:
 - As of version 1.2, TensorFlow no longer provides GPU support on macOS.
-- On macOS, Python 3.6 might gives warning but still works.
+- On macOS, Python 3.6 might give warning but still works.
 - TensorFlow with GPU support will only work with CUDA® Toolkit 8.0 and cuDNN v6.0, not the newest CUDA and cnDNN version. Make sure that you install the correct CUDA and cuDNN versions to avoid frustrating issues.
 - On Windows, TensorFlow supports only 64-bit Python 3.5 anx Python 3.6.
 - If you see the warning:
