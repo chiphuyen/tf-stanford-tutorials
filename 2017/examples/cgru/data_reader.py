@@ -88,7 +88,7 @@ def batch_examples(examples, batch_size, bucket_boundaries=None):
   We assume that examples is a dictionary with string keys and tensor values,
   possibly coming from a queue, e.g., constructed by examples_queue above.
   Each tensor in examples is assumed to be 1D. We will put tensors of similar
-  length into batches togeter. We return a dictionary with the same keys as
+  length into batches together. We return a dictionary with the same keys as
   examples, and with values being batches of size batch_size. If elements have
   different lengths, they are padded with 0s. This function is based on
   tf.contrib.training.bucket_by_sequence_length so see there for details.
